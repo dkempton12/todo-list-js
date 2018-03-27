@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>To-do List</title>
-</head>
-<body>
-<h1>To-Do List</h1>
+<html>
+  <head>
+    <title>Practical Todos</title>
+  </head>
+  <main>
+  <body>
+    <h1>Todo List</h1>
 
-<!-- Toggle All items button !-->
-<div>
-<button onclick="handlers.toggleAll()">Toggle All</button>
-</div>
-
-<!-- Add todo input and button !-->
-<div>
-<input type="text" id="addTodoTextInput">
-<button onclick="handlers.addTodo()">Add</button>
-</div>
-
-<!-- Update todo input and button !-->
-<div>
-<input type="number" id="updateTodoTextPositionInput">
-<input type="text" id="updateTodoTextInput">
-<button onclick="handlers.updateTodo()">Update</button>
-</div>
-
-<!-- Mark completed todo input and button !-->
-<div>
-<input type="number" id="markCompletedPositionInput">
-<button onclick="handlers.markCompleted()">Mark Completed</button>
-</div>
-<script type="text/javascript" src="app/app.js"></script>
-</body>
+    <div>
+      <button onclick="handlers.toggleAll()">Toggle All</button>
+    </div>
+    
+    <div>
+      <button onclick="handlers.addTodo()">Add</button>
+      <input id="addTodoTextInput" type="text">
+    </div>
+    
+    <div>
+      <button onclick="handlers.changeTodo()">Change Todo</button>
+      <input id="changeTodoPositionInput" type="number">
+      <input id="changeTodoTextInput" type="text">
+    </div>
+    
+    <div>
+      <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
+      <input id="toggleCompletedPositionInput" type="number">
+    </div>
+    
+    <ul>
+    </ul>
+  </main>
+    <script src="app/app.js"></script>
+  </body>
 </html>

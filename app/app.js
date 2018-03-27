@@ -1,103 +1,123 @@
-// To-do list app built with vanillaJS
-
-// should have an object that stores to-do-list function methods
-
 var todoList = {
-	// list
-	todos: [],
+  todos: [],
+  addTodo: function(todoText) {
+    this.todos.push({
+      todoText: todoText,
+      completed: false
+    });
+  },
+  changeTodo: function(position, todoText) {
+    this.todos[position].todoText = todoText;
+  },
+  deleteTodo: function(position) {
+    this.todos.splice(position, 1);
+  },
+  toggleCompleted: function(position) {
+    var todo = this.todos[position];
+    todo.completed = !todo.completed;
+  },
+  toggleAll: function() {
+    var totalTodos = this.todos.length;
+    var completedTodos = 0;
 
-	// display todos
-	displayTodos: function() {
-    if (this.todos.length === 0) {
-      console.log('Your todo list is empty!');
-    } else {
-      console.log('My todos');
-      for (var i = 0; i < this.todos.length; i++) {
-        if (this.todos[i].completed === true) {
-          console.log('(x)', this.todos[i].todoText);
-        } else {
-          console.log('()', this.todos[i].todoText);
-        }
+    // Get number of completed todos.
+    this.todos.forEach(function(todo) {
+      // todo = each item
+      if (todo.completed === true) {
+        completedTodos++;
       }
-    }
+    });
+    // Toggle
+    this.todos.forEach(function(todo) {
+      // Case 1: If everything's true, make everything false
+      if (completedTodos === totalTodos) {
+        todo.completed = false;
+      } else {
+        // Case 2: else, make everything true
+        todo.completed = true;
+      }
+    });
+  }
+};
+
+var handlers = {
+  addTodo: function() {
+    var addTodoTextInput = document.getElementById("addTodoTextInput");
+    todoList.addTodo(addTodoTextInput.value);
+    addTodoTextInput.value = "";
+    view.displayTodos();
+  },
+  changeTodo: function() {
+    var changeTodoPositionInput = document.getElementById(
+      "changeTodoPositionInput"
+    );
+    var changeTodoTextInput = document.getElementById("changeTodoTextInput");
+    todoList.changeTodo(
+      changeTodoPositionInput.valueAsNumber,
+      changeTodoTextInput.value
+    );
+    changeTodoPositionInput.value = "";
+    changeTodoTextInput.value = "";
+    view.displayTodos();
+  },
+  deleteTodo: function(position) {
+    todoList.deleteTodo(position);
+    view.displayTodos();
+  },
+  toggleCompleted: function() {
+    var toggleCompletedPositionInput = document.getElementById(
+      "toggleCompletedPositionInput"
+    );
+    todoList.toggleCompleted(toggleCompletedPositionInput.valueAsNumber);
+    toggleCompletedPositionInput.value = "";
+    view.displayTodos();
+  },
+  toggleAll: function() {
+    todoList.toggleAll();
+    view.displayTodos();
+  }
+};
+
+var view = {
+  displayTodos: function() {
+    var todosUl = document.querySelector("ul");
+    todosUl.innerHTML = "";
+
+    todoList.todos.forEach(function(todo, position) {
+      var todoLi = document.createElement("li");
+      var todoTextWithCompletion = "";
+
+      if (todo.completed === true) {
+        todoTextWithCompletion = "(x) " + todo.todoText;
+      } else {
+        todoTextWithCompletion = "( ) " + todo.todoText;
+      }
+      todoLi.id = position; // referring to position parameter line 80
+      todoLi.textContent = todoTextWithCompletion;
+      todoLi.appendChild(this.createDeleteButton());
+      todosUl.appendChild(todoLi);
+    }, this);
   },
 
-	// addTodos - adding todo objects with text description and completed property
-	addTodo: function(todoText) {
-		this.todos.push({
-			todoText: todoText,
-			completed: false
-		});
-		todoList.displayTodos();
-	},
+  createDeleteButton: function() {
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.className = "deleteButton";
+    return deleteButton;
+  },
 
-	// updateTodo - change todos that were previously added
-	updateTodo: function(position, todoText) {
-		this.todos[position].todoText = todoText;
-		todoList.displayTodos();
-	},
-
-	// deleteTodo - delete todos that have been added
-	deleteTodo: function(position) {
-		this.todos.splice(position, 1);
-		todoList.displayTodos();
-	},
-
-	// mark completed todo items
-	markCompleted: function(position) {
-		var todo = this.todos[position];
-		todo.completed = !todo.completed; // flipping completed property from false to true
-		todoList.displayTodos();
-	},
-
-	// toggle all items - off an on
-	toggleAll: function() {
-		// total todos
-		var totalTodos = this.todos.length;
-		var completedTodos = 0;
-		// determine number of completed todos
-		this.todos.forEach(function(todo){
-			if (todo.completed === true) {
-				completedTodos++;
-			}
-		});
-		// if everything is true, make everything false to toggle off
-		this.todos.forEach(function(todo){
-			if (totalTodos === completedTodos) {
-				todo.completed = false;
-			} else {
-				todo.completed = true;
-			}
-		});
-		todoList.displayTodos();
-	}
+  setUpEventListeners: function() {
+    var todosUl = document.querySelector("ul");
+    todosUl.addEventListener("click", function(event) {
+      console.log(event.target.parentNode.id);
+      // Get the element that was clicked on
+      var elementClicked = event.target;
+      // check if elementClicked was a delete button
+      if (elementClicked.className === "deleteButton") {
+        handlers.deleteTodo(parseInt(elementClicked.parentNode.id)); // parseInt converts string to a number, and here we're looking at the element clicked, and going up a level and getting the li's id
+      }
+    });
+  }
 };
 
-
-// should have an object that stores handlers - inputs and buttons
-var handlers = {
-	addTodo: function() {
-		var addTodoTextInput = document.getElementById('addTodoTextInput');
-		todoList.addTodo(addTodoTextInput.value);
-		addTodoTextInput.value = '';
-	},
-
-	updateTodo: function() {
-		var updateTodoTextPosition = document.getElementById('updateTodoTextPositionInput');
-		var updateTodoTextInput = document.getElementById('updateTodoTextInput');
-		todoList.updateTodo(updateTodoTextPositionInput.valueAsNumber, updateTodoTextInput.value);
-		updateTodoTextPosition.value = '';
-		updateTodoTextInput.value = '';
-	},
-
-	markCompleted: function() {
-		var markCompletedPositionInput = document.getElementById('markCompletedPositionInput');
-		todoList.markCompleted(markCompletedPositionInput.valueAsNumber);
-		markCompletedPositionInput.value = '';
-	},
-
-	toggleAll: function() {
-		todoList.toggleAll();
-	}
-};
-// should have an object for the view / display of the list 
+view.setUpEventListeners();
