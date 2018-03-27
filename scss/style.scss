@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300');
+
+$primary-font: 'Roboto', sans-serif;
+$heading: #1E90FF;
+
+body {
+	font: {
+		family: $primary-font;
+		weight: 100;
+	}
+	background: #FFF;
+}
+
+.container {
+	max-width: 600px;
+	margin: 0 auto;
+	
+	.main-heading {
+		text-align: center;
+		letter-spacing: 0.5px;
+		color: $heading;
+	}
+	.todo-handlers {
+		padding-bottom: 10px;
+		.button, .button-toggle-all {
+			padding: 5px;
+			font: {
+				size: 14px;
+				weight: 100;
+			}
+			color: #FFF;
+			cursor: pointer;
+		}
+		.button {
+			background: #238E68;
+			border: 1px solid #238E68;
+		}
+		.button-toggle-all {
+			background: #f55b5b;
+			border: 1px solid #f55b5b;
+		}
+		input {
+			padding: 8px;
+		}
+	}
+}

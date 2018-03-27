@@ -2,34 +2,37 @@
 <html>
   <head>
     <title>Practical Todos</title>
+    <link rel="stylesheet" type="text/css" href="scss/reset.css">
+    <link rel="stylesheet" type="text/css" href="scss/style.css">
   </head>
   <main>
   <body>
-    <h1>Todo List</h1>
+    <div class="container">
+    <h1 class="main-heading">Todo List</h1>
 
-    <div>
-      <button onclick="handlers.toggleAll()">Toggle All</button>
+    <div class="todo-handlers">
+      <button class="button-toggle-all" onclick="handlers.toggleAll()">Toggle All</button>
     </div>
     
-    <div>
-      <button onclick="handlers.addTodo()">Add</button>
+    <div class="todo-handlers">
       <input id="addTodoTextInput" type="text">
+      <button class="button" onclick="handlers.addTodo()">Add</button>
     </div>
     
-    <div>
-      <button onclick="handlers.changeTodo()">Change Todo</button>
+    <div class="todo-handlers">
       <input id="changeTodoPositionInput" type="number">
       <input id="changeTodoTextInput" type="text">
+      <button class="button" onclick="handlers.changeTodo()">Change Todo</button>
     </div>
     
-    <div>
-      <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
+    <div class="todo-handlers">
       <input id="toggleCompletedPositionInput" type="number">
+      <button class="button" onclick="handlers.toggleCompleted()">Toggle Completed</button>
     </div>
     
     <ul>
     </ul>
-  </main>
+  </div>
     <script src="app/app.js"></script>
   </body>
 </html>
