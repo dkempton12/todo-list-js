@@ -80,6 +80,24 @@ var handlers = {
 		var addTodoTextInput = document.getElementById('addTodoTextInput');
 		todoList.addTodo(addTodoTextInput.value);
 		addTodoTextInput.value = '';
+	},
+
+	updateTodo: function() {
+		var updateTodoTextPosition = document.getElementById('updateTodoTextPositionInput');
+		var updateTodoTextInput = document.getElementById('updateTodoTextInput');
+		todoList.updateTodo(updateTodoTextPositionInput.valueAsNumber, updateTodoTextInput.value);
+		updateTodoTextPosition.value = '';
+		updateTodoTextInput.value = '';
+	},
+
+	markCompleted: function() {
+		var markCompletedPositionInput = document.getElementById('markCompletedPositionInput');
+		todoList.markCompleted(markCompletedPositionInput.valueAsNumber);
+		markCompletedPositionInput.value = '';
+	},
+
+	toggleAll: function() {
+		todoList.toggleAll();
 	}
 };
 // should have an object for the view / display of the list 
