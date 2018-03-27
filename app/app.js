@@ -28,7 +28,28 @@ var todoList = {
 	markCompleted: function(position) {
 		var todo = this.todos[position];
 		todo.completed = !todo.completed; // flipping completed property from false to true
-	} 
+	},
+
+	// toggle all items - off an on
+	toggleAll: function() {
+		// total todos
+		var totalTodos = this.todos.length;
+		var completedTodos = 0;
+		// determine number of completed todos
+		this.todos.forEach(function(todo){
+			if (todo.completed === true) {
+				completedTodos++;
+			}
+		});
+		// if everything is true, make everything false to toggle off
+		this.todos.forEach(function(todo){
+			if (totalTodos === completedTodos) {
+				todo.completed = false;
+			} else {
+				todo.completed = true;
+			}
+		});
+	}
 };
 
 

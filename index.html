@@ -5,7 +5,31 @@
 	<title>To-do List</title>
 </head>
 <body>
+<h1>To-Do List</h1>
 
+<!-- Toggle All items button !-->
+<div>
+<button onclick="handlers.toggleAll()">Toggle All</button>
+</div>
+
+<!-- Add todo input and button !-->
+<div>
+<input type="text" id="addTodoTextInput">
+<button onclick="handlers.addTodo()">Add</button>
+</div>
+
+<!-- Update todo input and button !-->
+<div>
+<input type="number" id="updateTodoTextPosition">
+<input type="text" id="updateTodoTextInput">
+<button onclick="handlers.updateTodo()">Update</button>
+</div>
+
+<!-- Mark completed todo input and button !-->
+<div>
+<input type="number" id="markCompletedPosition">
+<button onclick="handlers.markCompleted()">Mark Completed</button>
+</div>
 <script type="text/javascript" src="app/app.js"></script>
 </body>
 </html>
